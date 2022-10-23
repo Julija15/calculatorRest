@@ -1,0 +1,13 @@
+GET http://localhost:8080/user/findAll
+
+###
+
+POST http://localhost:8080/user/save
+Content-Type: application/json
+
+{
+  "name": "anna",
+  "username": "petrova"
+}
+
+###
