@@ -1,5 +1,6 @@
 package com.example.calculatorrest.service;
 
+import com.example.calculatorrest.entity.Operation;
 import com.example.calculatorrest.entity.User;
 import com.example.calculatorrest.storage.UserStorige;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class UserService  {
 
     public Optional<User> findByUsername(String username) {
         return storage.findByUsername(username);
+    }
+
+    public void addOperation(Operation operation) {
     }
 }
 

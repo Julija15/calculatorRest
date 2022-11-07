@@ -1,30 +1,30 @@
 package com.example.calculatorrest.controller;
 
 import com.example.calculatorrest.entity.Operation;
-import com.example.calculatorrest.entity.User;
 import com.example.calculatorrest.service.CalculatorService;
+import com.example.calculatorrest.service.UserService;
+import com.example.calculatorrest.storage.InMemoryOperationStorage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/calculator")
 public class CalculatorController {
     @Autowired
     CalculatorService calculatorService;
+    @Autowired
+    InMemoryOperationStorage inMemoryOperationStorage;
+
+    @Autowired
+    UserService userService;
     @PostMapping("/calculator")
-    public String calculator(@ModelAttribute("newOperation") Operation operation, BindingResult bindingResult,
-                             Model model, HttpSession httpSession) {
+    public Double calculator(@RequestBody Operation operation) {
         calculatorService.calculate(operation);
         if (operation.getResult() == null) {
             throw new RuntimeException("Incorrect arithmetical operation!");
         }
-        User currentUser = (User) httpSession.getAttribute("currentUser");
-        currentUser.addOperation(operation);
-        model.addAttribute("resultOperation", operation);
-        return "result";
+        userService.addOperation(operation);
+        inMemoryOperationStorage.save(operation);
+        return operation.getResult();
     }
 }
