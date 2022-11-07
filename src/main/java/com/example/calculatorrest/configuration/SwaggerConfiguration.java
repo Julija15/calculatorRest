@@ -1,5 +1,6 @@
-package configuration;
+package com.example.calculatorrest.configuration;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 //@Configuration
