@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
+
     private final List<User> userList;
     @Autowired
     InMemoryUserStorage inMemoryUserStorage;
